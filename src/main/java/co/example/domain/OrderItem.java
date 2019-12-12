@@ -25,6 +25,30 @@ public class OrderItem {
 	/** 注文トッピング情報 */
 	private List<OrderTopping> orderToppingList;
 
+	/**
+	 * （トッピング＋商品） ×数量の値段
+	 * 
+	 * @return
+	 */
+	public int getSubTotal() {
+		int subtotal = 0;
+		int totalTopping = 0;
+		// トッピング+商品 Mの価格×数量
+		if (size.equals('M')) {
+			for (OrderTopping topping : orderToppingList) {
+				totalTopping += topping.getTopping().getPriceM();
+			}
+			subtotal = (totalTopping + item.getPriceM()) * quantity;
+			// トッピング Lの価格×数量
+		} else {
+			for (OrderTopping topping : orderToppingList) {
+				totalTopping += topping.getTopping().getPriceL();
+			}
+			subtotal += (totalTopping + item.getPriceL()) * quantity;
+		}
+		return subtotal;
+	}
+
 	public Integer getId() {
 		return id;
 	}

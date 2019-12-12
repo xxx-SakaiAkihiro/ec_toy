@@ -17,7 +17,7 @@ public class ShowItemDetailController {
 
 	@RequestMapping("")
 	public String showItemDetail(Integer id, Model model) {
-		Item item = itemDetailService.load(id);
+		Item item = itemDetailService.showItemDetail(id);
 		model.addAttribute("item", item);
 		return "item_detail";
 	}

@@ -1,7 +1,7 @@
 package co.example.domain;
 
-import java.security.Timestamp;
 import java.sql.Date;
+import java.sql.Timestamp;
 import java.util.List;
 
 /**
@@ -30,16 +30,32 @@ public class Order {
 	private String destinationZipcode;
 	/** 宛先住所 */
 	private String destinationAddress;
-	/** 宛先住所 */
-	private String destinationTel;
 	/** 宛先TEL */
-	private Timestamp deliveryTime;;
+	private String destinationTel;
 	/** 配達時間 */
+	private Timestamp deliveryTime;
+	/** 支払い方法 */
 	private Integer paymentMethod;
 	/** ユーザー */
 	private User user;
 	/** 注文商品情報 */
 	private List<OrderItem> orderItemList;
+
+	public int getTax() {
+		int tax = 0;
+		for (OrderItem orderItem : orderItemList) {
+			tax += (orderItem.getSubTotal() * 0.1);
+		}
+		return tax;
+	}
+
+	public int getCalcTotalPrice() {
+		int CalcTotalPrice = 0;
+		for (OrderItem orderItem : orderItemList) {
+			CalcTotalPrice += (orderItem.getSubTotal() + getTax());
+		}
+		return CalcTotalPrice;
+	}
 
 	public Integer getId() {
 		return id;
